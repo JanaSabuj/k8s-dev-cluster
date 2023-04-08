@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dummy-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do sleep 3600; done"]
+    stdin: true
+    tty: true
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+  - name: tools
+    image: debian
+    command: ["/bin/sh"]
+    args: ["-c", "apt-get update && apt-get install -y curl vim dnsutils jq && sleep infinity"]
+    stdin: true
+    tty: true
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+  volumes:
+  - name: shared-data
+    emptyDir: {}

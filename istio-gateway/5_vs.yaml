@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpbin-vs
+spec:
+  hosts:
+    - httpbin.dev
+  gateways:
+    - http-gateway
+  http:
+    - route:
+      - destination:
+          host: httpbin-service
+          port: 
+            number: 8082

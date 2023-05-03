@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: hello-vs
+spec:
+  hosts:
+    - hello.dev
+  gateways:
+    - http-gateway
+  http:
+    - route:
+      - destination:
+          host: hello-service
+          port: 
+            number: 8081

@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello
+  name: hello-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+        - name: hello
+          image:  luksa/kubia:latest
+          ports:
+            - containerPort: 8080
+              name: tcp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello
+  name: hello-service
+spec:
+  selector:
+    app: hello
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8080
+      name: tcp
